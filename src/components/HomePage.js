@@ -27,18 +27,6 @@ const HomePage = () => {
         <p>{wordDetails[0].phonetic}</p>
          {wordDetails[0].phonetics.map((phonetic, idx) => (
           <React.Fragment key={idx}>
-             {phonetic.audio && (
-              <audio controls>
-               <source src={phonetic.audio} type="audio/mp3" />
-              </audio>
-            )}
-          </React.Fragment>
-        ))}
-
-        
-        {wordDetails[0].phonetics.map((phonetic, idx) => (
-          <React.Fragment key={idx}>
-            <p>{phonetic.text}</p>
             {phonetic.audio && (
               <audio controls>
                <source src={phonetic.audio} type="audio/mp3" />
@@ -47,7 +35,8 @@ const HomePage = () => {
           </React.Fragment>
         ))}
 
-        
+    <p>{wordDetails[0].phonetic}</p>
+       
         <ul>
           {wordDetails[0].meanings.map((meaning, index) => (
             <li key={index}>
