@@ -11,10 +11,12 @@ const HistoryPage = () => {
 
     const handleSearch = (searchWord) => {
             dispatch(addToSearchHistory(searchWord)); 
+           
     }
+    console.log(handleSearch);
     
   return (
-    <div className='history'>
+    <div className='history'>  
       <h1>Search History</h1>
       <ul>
         {searchHistory.map((word, index) => (

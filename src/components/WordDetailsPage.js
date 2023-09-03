@@ -12,7 +12,7 @@ const WordDetailsPage = () => {
 
   useEffect(() => {
     dispatch(fetchWordDetails(word));
-  }, [dispatch, word]);
+  }, [dispatch, word]); 
 
   const renderWordDetails = () => {
     if (isLoading) {
@@ -23,21 +23,22 @@ const WordDetailsPage = () => {
       return <p>No details available for {word}</p>;
     }
 
-    const { audio, phonetic, meanings } = wordDetails[0];
-
     return (
       <div>
         <h1>{word}</h1>
-        <p>{wordDetails[0].phonetic}</p>
-        <audio controls>
-  {wordDetails.map((details, index) => (
-    <source key={index} src={details.audio} type="audio/mpeg" />
-    
-  ))}
-  Your browser does not support the audio element.
-</audio>
-
-        <p>{wordDetails[0].phonetic}</p>
+        {wordDetails[0].phonetic && <p>{wordDetails[0].phonetic}</p>}
+       
+        {wordDetails[0].phonetics.map((phonetic, idx) => ( 
+          <React.Fragment key={idx}>
+           
+            {phonetic.audio && (
+              <audio controls>
+               <source src={phonetic.audio} type="audio/mp3" />
+              </audio>
+            )}
+          </React.Fragment>
+        ))}
+       <p>{wordDetails[0].phonetic}</p>
         <ul>
           {wordDetails[0].meanings.map((meaning, index) => (
             <li key={index}>
@@ -48,7 +49,7 @@ const WordDetailsPage = () => {
         </ul>
       </div>
     );
-  };
+  }    
 
   return (
     <div>
@@ -58,4 +59,3 @@ const WordDetailsPage = () => {
 };
 
 export default WordDetailsPage;
-
