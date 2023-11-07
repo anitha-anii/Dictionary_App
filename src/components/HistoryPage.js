@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector,useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToSearchHistory } from '../redux/action';
+import './App.css';
 
 const HistoryPage = () => {
   const searchHistory = useSelector((state) => state.dictionary.history.searchHistory || []);
@@ -18,6 +19,8 @@ const HistoryPage = () => {
   return (
     <div className='history'>  
       <h1>Search History</h1>
+      <hr></hr>
+      <hr></hr>
       <ul>
         {searchHistory.map((word, index) => (
           <li key={index}>

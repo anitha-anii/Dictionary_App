@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchWordDetails } from "../redux/action";
 import Loader from "./Loader";
+import './App.css';
 
 const WordDetailsPage = () => {
   const { word } = useParams();

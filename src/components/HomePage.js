@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchWordDetails, addToSearchHistory } from "../redux/action";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
+import './App.css'; 
+import Textcolor from "./Textcolor";
 
 const HomePage = () => {
   const [word, setWord] = useState("");
@@ -17,25 +19,22 @@ const HomePage = () => {
   };
 
   const renderWordDetails = () => {
-    if (!wordDetails) {
-      return null;
+    if (!word) {
+      return (
+        <div>
+         <Textcolor/>
+           </div>
+      );
     }
-
-    return ( 
+  
+     
+    if (!wordDetails || !wordDetails[0]) {
+      return <div className="displing"><h1>No details found for the word {word}</h1></div>;
+    }
+    return (
       <div className="displing">
-        <h1>{word}</h1>
-        <p>{wordDetails[0].phonetic}</p>
-         {wordDetails[0].phonetics.map((phonetic, idx) => (
-          <React.Fragment key={idx}>
-            {phonetic.audio && (
-              <audio controls>
-               <source src={phonetic.audio} type="audio/mp3" />
-              </audio>
-            )}
-          </React.Fragment>
-        ))}
-
-    <p>{wordDetails[0].phonetic}</p>
+        
+       <h1>{word.toUpperCase()}</h1>
        
         <ul>
           {wordDetails[0].meanings.map((meaning, index) => (
@@ -45,25 +44,35 @@ const HomePage = () => {
             </li>
           ))}
         </ul>
+        {wordDetails[0].phonetics.map((phonetic, idx) => (
+          <React.Fragment key={idx}>
+            {phonetic.audio && (
+              <audio controls>
+               <source src={phonetic.audio} type="audio/mp3" />
+              </audio>
+            )}
+          </React.Fragment>
+        ))}
+           
       </div>
     );
   };
 
   return (
-    <div className="homepage">
-      <input
-        type="text"
-        placeholder="Enter a word"
-        value={word}
-        onChange={(e) => setWord(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-      {isLoading ? <Loader /> : null}
-
+     <>
+      <div className="homepage">
+        <input
+          type="text"
+          placeholder="Enter a word"
+          value={word}
+          onChange={(e) => setWord(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+            {isLoading && <Loader />}
       {renderWordDetails()}
-
       {wordDetails && <Link to={`/word/${word}`}></Link>}
-    </div>
+      </>
   );
 };
 
